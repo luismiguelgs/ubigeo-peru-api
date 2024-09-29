@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { PeruProvincesService } from './peru-provinces.service';
-import { CreatePeruProvinceDto } from './dto/create-peru-province.dto';
-import { UpdatePeruProvinceDto } from './dto/update-peru-province.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('provinces')
 @Controller('peru-provinces')
 export class PeruProvincesController {
   constructor(private readonly peruProvincesService: PeruProvincesService) {}

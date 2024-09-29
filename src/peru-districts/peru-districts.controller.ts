@@ -1,6 +1,9 @@
 import { Controller, Get, Param, } from '@nestjs/common';
 import { PeruDistrictsService } from './peru-districts.service';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('districts')
 @Controller('peru-districts')
 export class PeruDistrictsController {
   constructor(private readonly peruDistrictsService: PeruDistrictsService) {}
