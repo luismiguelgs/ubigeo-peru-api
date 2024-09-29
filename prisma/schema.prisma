@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model PeruRegion{
+  id Int @id @default(autoincrement())
+  name String
+  provinces PeruProvince[] //1 to many with PeruProvince
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PeruProvince {
+  id        Int    @id @default(autoincrement())
+  name      String
+  regionId  Int
+  region    PeruRegion  @relation(fields: [regionId], references: [id])
+  districts PeruDistrict[] //1 to many with PeruDistric
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PeruDistrict {
+  id        Int    @id @default(autoincrement())
+  name      String
+  provinceId  Int
+  province PeruProvince @relation(fields: [provinceId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
